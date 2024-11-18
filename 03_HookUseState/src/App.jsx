@@ -1,18 +1,22 @@
 import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [person, setPerson] = useState({
+    firstName: "John",
+    lastName: "Doe",
+    age: 18,
+  });
 
   const increment = () => {
-    setCount((c) => c + 1);
-    setCount((c) => c + 1);
-    setCount((c) => c + 1);
+    setPerson({ ...person, age: person.age + 1 });
   };
 
   return (
     <>
-      <p>Compteur : {count}</p>
-      <button onClick={increment}>Incrémenter</button>
+      <p>
+        Age de {person.firstName} : {person.age}
+      </p>
+      <button onClick={increment}>Gagner une année</button>
     </>
   );
 }
