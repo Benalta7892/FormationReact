@@ -8,7 +8,9 @@ const todos = ["Présenter react", "Présenter le JSX", "Crèer des composants"]
 function App() {
   return (
     <>
-      <Title color="blue">Mon composant</Title>
+      <Title color="blue" id="monid" className="demo" data-demo="demo">
+        Mon composant
+      </Title>
       <input type="text" />
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati dicta est nesciunt facilis hic sunt eligendi
@@ -23,13 +25,12 @@ function App() {
   );
 }
 
-function Title({ color, children, hidden }) {
+function Title({ color, hidden, ...props }) {
   if (hidden) {
     return null;
   }
-  console.log(hidden);
 
-  return <h1 style={{ color: color }}>{children}</h1>;
+  return <h1 style={{ color: color }} {...props} />;
 }
 
 export default App;
