@@ -7,8 +7,14 @@ function App() {
     age: 18,
   });
 
-  const increment = () => {
+  const [count, setCount] = useState(0);
+
+  const incrementAge = () => {
     setPerson({ ...person, age: person.age + 1 });
+  };
+
+  const incrementCount = () => {
+    setCount(count + 1);
   };
 
   return (
@@ -16,7 +22,8 @@ function App() {
       <p>
         Age de {person.firstName} : {person.age}
       </p>
-      <button onClick={increment}>Gagner une année</button>
+      <button onClick={incrementAge}>Gagner une année</button>
+      <button onClick={incrementCount}>Incrémenter {count}</button>
     </>
   );
 }
