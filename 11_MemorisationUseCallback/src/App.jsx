@@ -1,15 +1,13 @@
-import { useState, memo, useMemo } from "react";
+import { useState, memo, useMemo, useCallback } from "react";
 import { Input } from "./components/forms/Input.jsx";
 // import { waitSync } from "./utils/waitSync.js";
 
 function App() {
   const [name, setName] = useState("");
 
-  const handleClick = useMemo(() => {
-    return () => {
-      console.log("Hello");
-    };
-  }, []);
+  const handleClick = useCallback(() => {
+    console.log(name.length);
+  }, [name.length]);
 
   return (
     <div className="container my-2 vstack gap-2">
