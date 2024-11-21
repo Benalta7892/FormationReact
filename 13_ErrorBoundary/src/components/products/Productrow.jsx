@@ -5,12 +5,10 @@
 export function ProductRow({ product }) {
   const style = product.stocked ? undefined : { color: "red" };
 
-  const handleClick = () => {
-    throw new Error("Misclicked!");
-  };
+  throw new Error("Not implemented");
 
   return (
-    <tr onClick={handleClick}>
+    <tr>
       <td style={style}>{product.name}</td>
       <td>{product.price}</td>
     </tr>
