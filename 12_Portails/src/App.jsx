@@ -1,3 +1,5 @@
+import { createPortal } from "react-dom";
+
 function App() {
   return (
     <div
@@ -29,6 +31,22 @@ function App() {
   );
 }
 
-function Modal() {}
+function Modal() {
+  return createPortal(
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        padding: 10,
+        border: "solid 1px grey",
+        background: "#FFF",
+      }}
+    >
+      Je suis une modale
+    </div>,
+    document.body
+  );
+}
 
 export default App;
