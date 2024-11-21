@@ -4,26 +4,28 @@ import { Contact } from "./pages/Contact.jsx";
 import { Single } from "./pages/Single.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 import { Header } from "./components/Header.jsx";
+import { ErrorBoundary } from "react-error-boundary";
+import { Alert } from "./components/Alert.jsx";
 
 function App() {
-  const { page } = useHashNavigation();
-  const pageContent = getPageContent(page);
+  const { page, param } = useHashNavigation();
+  const pageContent = getPageContent(page, param);
 
   return (
     <>
       <Header page={page} />
-      <p>Page: {page}</p>
-      <p>
-        <a href="#">Home</a>
-        <a href="#post">Article</a>
-        <a href="#contact">Contact</a>
-      </p>
-      {pageContent}
+      <div className="container my-3">
+        <ErrorBoundary FallbackComponent={PageError}>{pageContent}</ErrorBoundary>
+      </div>
     </>
   );
 }
 
-function getPageContent(page) {
+function PageError({ error }) {
+  return <Alert type="danger">{error.toString()}</Alert>;
+}
+
+function getPageContent(page, param) {
   if (page === "home") {
     return <Home />;
   }
@@ -31,7 +33,7 @@ function getPageContent(page) {
     return <Contact />;
   }
   if (page === "post") {
-    return <Single />;
+    return <Single postId={param} />;
   }
   return <NotFound page={page} />;
 }
