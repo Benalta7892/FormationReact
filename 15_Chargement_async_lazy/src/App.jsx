@@ -1,11 +1,12 @@
 import { useHashNavigation } from "./hooks/useHashNavigation.js";
 import { Home } from "./pages/Home.jsx";
 import { Contact } from "./pages/Contact.jsx";
-import { Single } from "./pages/Single.jsx";
+// import { Single } from "./pages/Single.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 import { Header } from "./components/Header.jsx";
 import { ErrorBoundary } from "react-error-boundary";
 import { Alert } from "./components/Alert.jsx";
+import { lazy, Suspense } from "react";
 
 function App() {
   const { page, param } = useHashNavigation();
@@ -29,11 +30,16 @@ function getPageContent(page, param) {
   if (page === "home") {
     return <Home />;
   }
+  if (page === "post") {
+    const SingleLazy = lazy(() => import("./pages/Single.jsx"));
+    return (
+      <Suspense fallback={<div>Chargement des composants en cours</div>}>
+        <SingleLazy postId={param} />
+      </Suspense>
+    );
+  }
   if (page === "contact") {
     return <Contact />;
-  }
-  if (page === "post") {
-    return <Single postId={param} />;
   }
   return <NotFound page={page} />;
 }
