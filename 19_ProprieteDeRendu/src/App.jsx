@@ -1,5 +1,6 @@
 import { SearchableList } from "./SearchableList.jsx";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 const recipes = [
   { name: "Feuilles de lasagne", icon: "🍃" },
@@ -34,6 +35,7 @@ function App() {
         )}
         // itemComponent={itemComponent}
       ></SearchableList>
+      <Button as="button">Bonjour</Button>
     </div>
   );
 }
