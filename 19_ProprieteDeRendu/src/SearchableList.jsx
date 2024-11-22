@@ -39,7 +39,7 @@ export function SearchableList({ items, itemRenderer }) {
         {filteredItems.map((item, k) => (
           <Fragment key={item.name}>
             {itemRenderer ? (
-              itemRenderer(item, k === SelectedItemIndex)
+              itemRenderer(item, k === SelectedItemIndex, { "aria-current": k === SelectedItemIndex })
             ) : (
               <li
                 aria-current={k === SelectedItemIndex}
