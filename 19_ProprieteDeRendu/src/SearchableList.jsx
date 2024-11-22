@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { clsx } from "clsx";
 
-export function SearchableList({ items, itemComponent: ItemComponent }) {
+export function SearchableList({ items, itemRenderer = defaultItemRenderer }) {
   const [search, setSearch] = useState("");
   const filteredItems = useMemo(() => {
     return items.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
@@ -38,20 +38,18 @@ export function SearchableList({ items, itemComponent: ItemComponent }) {
       <ul className="list-group" style={{ listStyle: "disc", paddingLeft: "20px" }}>
         {filteredItems.map((item, k) => (
           <Fragment key={item.name}>
-            {ItemComponent ? (
-              <ItemComponent active={k === selectedItemIndex} item={item} />
-            ) : (
-              <li
-                aria-current={k === selectedItemIndex}
-                className={clsx("list-group-item", k === selectedItemIndex && "active")}
-                key={item.name}
-              >
-                {item.name}
-              </li>
-            )}
+            {itemRenderer(item, k === selectedItemIndex, { "aria-current": k === selectedItemIndex })}
           </Fragment>
         ))}
       </ul>
     </div>
+  );
+}
+
+function defaultItemRenderer(item, active, baseProps) {
+  return (
+    <li {...baseProps} className={clsx("list-group-item", active && "active")}>
+      {item.name}
+    </li>
   );
 }
