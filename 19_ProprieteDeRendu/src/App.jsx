@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { SearchableList } from "./SearchableList.jsx";
+import { useState } from "react";
+
+const recipes = [
+  { name: "Feuilles de lasagne", icon: "🍃" },
+  { name: "Sauce tomate", icon: "🍅" },
+  { name: "Viande végétalienne hachée", icon: "🌿" },
+  { name: "Oignon", icon: "🧅" },
+  { name: "Ail", icon: "🧄" },
+  { name: "Épinards", icon: "🍃" },
+  { name: "Tofu", icon: "🥦" },
+  { name: "Fromage végétalien râpé", icon: "🧀" },
+  { name: "Sel", icon: "🧂" },
+  { name: "Poivre", icon: "🌶️" },
+  { name: "Huile d'olive", icon: "🫒" },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [count, setCount] = useState(0);
+  const increment = () => {
+    setCount((v) => v + 1);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <button className="btn btn-primary mb-2" onClick={increment}>
+        Compteur : {count}
+      </button>
+      <SearchableList
+        items={recipes}
+        itemRenderer={(item) => (
+          <li>
+            {item.name} {item.icon}
+          </li>
+        )}
+      ></SearchableList>
+    </div>
+  );
 }
 
-export default App
+export default App;
