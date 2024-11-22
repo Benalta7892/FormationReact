@@ -27,13 +27,22 @@ function App() {
       </button>
       <SearchableList
         items={recipes}
-        itemRenderer={(item, active, baseProps) => (
+        /*itemRenderer={(item, active, baseProps) => (
           <li {...baseProps}>
             {item.name} {item.icon} {active ? "👉" : ""}
           </li>
-        )}
+        )}*/
+        itemComponent={itemComponent}
       ></SearchableList>
     </div>
+  );
+}
+
+function itemComponent({ item, active }) {
+  return (
+    <li>
+      {item.name} {item.icon} {active ? "👉" : ""}
+    </li>
   );
 }
 
