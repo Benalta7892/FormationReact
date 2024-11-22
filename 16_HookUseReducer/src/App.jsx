@@ -1,47 +1,26 @@
-import { useHashNavigation } from "./hooks/useHashNavigation.js";
-import { Home } from "./pages/Home.jsx";
-import { Contact } from "./pages/Contact.jsx";
-// import { Single } from "./pages/Single.jsx";
-import { NotFound } from "./pages/NotFound.jsx";
-import { Header } from "./components/Header.jsx";
-import { ErrorBoundary } from "react-error-boundary";
-import { Alert } from "./components/Alert.jsx";
-import { lazy, Suspense } from "react";
+import { useTodos } from "./hooks/useTodos";
 
 function App() {
-  const { page, param } = useHashNavigation();
-  const pageContent = getPageContent(page, param);
+  const { visibleTodos, removeTodo, clearCompleted, toggleFilter, toggleTodo, showCompleted } = useTodos();
 
   return (
-    <>
-      <Header page={page} />
-      <div className="container my-3">
-        <ErrorBoundary FallbackComponent={PageError}>{pageContent}</ErrorBoundary>
-      </div>
-    </>
+    <div>
+      <p>
+        <input type="checkbox" checked={showCompleted} onChange={toggleFilter} />
+        Afficher les tâches accomplies
+      </p>
+      <ul>
+        {visibleTodos.map((todo) => (
+          <li key={todo.name}>
+            <input type="checkbox" onChange={() => toggleTodo(todo)} checked={todo.checked} />
+            {todo.name}
+            <button onClick={() => removeTodo(todo)}>Supprimer</button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={clearCompleted}>Supprimer les tâches accomplies</button>
+    </div>
   );
-}
-
-function PageError({ error }) {
-  return <Alert type="danger">{error.toString()}</Alert>;
-}
-
-function getPageContent(page, param) {
-  if (page === "home") {
-    return <Home />;
-  }
-  if (page === "post") {
-    const SingleLazy = lazy(() => import("./pages/Single.jsx"));
-    return (
-      <Suspense fallback={<div>Chargement des composants en cours</div>}>
-        <SingleLazy postId={param} />
-      </Suspense>
-    );
-  }
-  if (page === "contact") {
-    return <Contact />;
-  }
-  return <NotFound page={page} />;
 }
 
 export default App;
