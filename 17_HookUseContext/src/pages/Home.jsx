@@ -3,6 +3,8 @@ import { useFetch } from "../hooks/useFetch.js";
 import { Spinner } from "../components/Spinner.jsx";
 import { Alert } from "../components/Alert.jsx";
 import { Card } from "../components/Card.jsx";
+import { useTheme } from "../hooks/useTheme.jsx";
+import { useContext } from "react";
 
 export function Home() {
   useDocumentTitle("Mon blog");
@@ -19,6 +21,7 @@ export function Home() {
   return (
     <>
       <h1 className="mb-3">Mon blog</h1>
+      <ThemeSwitcher />
       <div className="row gap-4">
         {data.map((post) => (
           <div key={post.id} className="clo-12 col-md-4">
@@ -34,4 +37,9 @@ export function Home() {
       </div>
     </>
   );
+}
+
+function ThemeSwitcher() {
+  const { toggleTheme } = useTheme();
+  return <button onClick={toggleTheme}>Changer de theme</button>;
 }

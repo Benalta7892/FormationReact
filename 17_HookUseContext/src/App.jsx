@@ -1,7 +1,6 @@
 import { useHashNavigation } from "./hooks/useHashNavigation.js";
 import { Home } from "./pages/Home.jsx";
 import { Contact } from "./pages/Contact.jsx";
-// import { Single } from "./pages/Single.jsx";
 import { NotFound } from "./pages/NotFound.jsx";
 import { Header } from "./components/Header.jsx";
 import { ErrorBoundary } from "react-error-boundary";
