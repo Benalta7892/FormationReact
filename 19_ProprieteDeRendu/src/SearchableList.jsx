@@ -16,11 +16,11 @@ export function SearchableList({ items, itemRenderer }) {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setSelectedItem((v) => (v + 1 + filteredItems.length) % filteredItems.length);
+        setSelectedIndex((v) => (v + 1 + filteredItems.length) % filteredItems.length);
         break;
       case "ArrowUp":
         e.preventDefault();
-        setSelectedItem((v) => (v - 1 + filteredItems.length) % filteredItems.length);
+        setSelectedIndex((v) => (v - 1 + filteredItems.length) % filteredItems.length);
         break;
     }
   };
@@ -39,7 +39,7 @@ export function SearchableList({ items, itemRenderer }) {
         {filteredItems.map((item, k) => (
           <Fragment key={item.name}>
             {itemRenderer ? (
-              itemRenderer(item)
+              itemRenderer(item, k === SelectedItemIndex)
             ) : (
               <li
                 aria-current={k === SelectedItemIndex}

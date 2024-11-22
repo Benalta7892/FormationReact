@@ -27,9 +27,9 @@ function App() {
       </button>
       <SearchableList
         items={recipes}
-        itemRenderer={(item) => (
+        itemRenderer={(item, active) => (
           <li>
-            {item.name} {item.icon}
+            {item.name} {item.icon} {active ? "👉" : ""}
           </li>
         )}
       ></SearchableList>
