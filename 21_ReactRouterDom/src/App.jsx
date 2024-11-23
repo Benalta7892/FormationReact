@@ -9,7 +9,26 @@ const router = createBrowserRouter([
     children: [
       {
         path: "blog",
-        element: <Single />,
+        element: (
+          <div className="row">
+            <aside className="col-3">
+              <h2>Sidebar</h2>
+            </aside>
+            <main className="col-9">
+              <Outlet />
+            </main>
+          </div>
+        ),
+        children: [
+          {
+            path: "",
+            element: <div>Mon Blog</div>,
+          },
+          {
+            path: ":id",
+            element: <Single />,
+          },
+        ],
       },
       {
         path: "contact",
