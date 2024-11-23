@@ -1,12 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-  NavLink,
-  Outlet,
-  useRouteError,
-  useNavigation,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, NavLink, Outlet, useRouteError, useNavigation } from "react-router-dom";
 import { Single } from "./pages/Single";
 import { Blog } from "./pages/Blog";
 import { Spinner } from "./components/Spinner.jsx";
@@ -33,7 +25,10 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Blog />,
-            loader: () => fetch("https://jsonplaceholder.typicode.com/posts?_limit=10"),
+            loader: async () => {
+              const posts = fetch("https://jsonplaceholder.typicode.com/posts?_limit=10").then((r) => r.json());
+              return { posts };
+            },
           },
           {
             path: ":id",
@@ -56,13 +51,13 @@ function PageError() {
   return (
     <>
       <h1>Une erreur est survenue</h1>
-      <p>{error?.error?.toString() ?? error?.toString()}</p>
+      <p>{error?.message ?? error?.toString()}</p>
     </>
   );
 }
 
 function Root() {
-  const { state } = useNavigation();
+  const navigation = useNavigation();
   return (
     <>
       <header>
@@ -73,7 +68,7 @@ function Root() {
         </nav>
       </header>
       <div className="container my-4">
-        {state === "loading" && <Spinner />}
+        {navigation.state === "loading" && <Spinner />}
         <Outlet />
       </div>
     </>
