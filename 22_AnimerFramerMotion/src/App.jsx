@@ -1,12 +1,17 @@
 import { useToggle } from "./hooks/useToggle.js";
 import { Button } from "./components/Button.jsx";
-import { motion } from "framer-motion";
+import { motion, stagger } from "framer-motion";
 import "./App.css";
 import { forwardRef } from "react";
 
 const boxVariants = {
-  visible: { x: 0, opacity: 1, rotate: 0 },
-  hidden: { x: 100, opacity: 0, rotate: 45 },
+  visible: { x: 0, rotate: 0 },
+  hidden: { x: 100, rotate: 45 },
+};
+
+const wrappervariants = {
+  visible: { opacity: 1, transition: { when: "beforeChildren" } },
+  hidden: { opacity: 0, transition: { when: "afterChildren", staggerChildren: 0.2 } },
 };
 
 function App() {
@@ -14,10 +19,10 @@ function App() {
 
   return (
     <div className="container my-4 vstack gap-2">
-      <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"}>
-        <Box>1</Box>
-        <Box>2</Box>
-        <Box>3</Box>
+      <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
+        <MotionBox variants={boxVariants}>1</MotionBox>
+        <MotionBox variants={boxVariants}>2</MotionBox>
+        <MotionBox variants={boxVariants}>3</MotionBox>
       </motion.div>
       <div>
         <Button onClick={toggle}>Afficher / Masquer</Button>
@@ -28,9 +33,9 @@ function App() {
 
 const Box = forwardRef(({ children }, ref) => {
   return (
-    <motion.div variants={boxVariants} className="box" ref={ref}>
+    <div className="box" ref={ref}>
       {children}
-    </motion.div>
+    </div>
   );
 });
 
