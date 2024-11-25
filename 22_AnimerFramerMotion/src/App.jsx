@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="container my-4 vstack gap-2">
-      <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
+      <motion.div className="hstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
         {items.map((item) => (
           <MotionBox layout key={item}>
             {item}
@@ -53,7 +53,7 @@ function Page1() {
         doloribus, sit illo, eum, mollitia deserunt quo incidunt facere! Quas inventore animi maiores exercitationem a
         rerum!
       </p>
-      <img src="https://picsum.photos/id/237/200/300" width={200} height={300} alt="" />
+      <motion.img layoutId="image" src="https://picsum.photos/id/237/200/300" width={200} height={300} alt="" />
       <p>Lorem ipsum dolor sit.</p>
     </div>
   );
@@ -62,12 +62,7 @@ function Page1() {
 function Page2() {
   return (
     <div>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptate ipsam ratione temporibus facilis
-        doloribus, sit illo, eum, mollitia deserunt quo incidunt facere! Quas inventore animi maiores exercitationem a
-        rerum!
-      </p>
-      <img src="https://picsum.photos/id/238/200/300" width={200} height={300} alt="" />
+      <motion.img layoutId="image" src="https://picsum.photos/id/238/300/200" width={300} height={200} alt="" />
       <p>Lorem ipsum dolor sit.</p>
     </div>
   );
