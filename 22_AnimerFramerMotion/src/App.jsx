@@ -10,8 +10,8 @@ const boxVariants = {
 };
 
 const wrappervariants = {
-  visible: { opacity: 1, transition: { when: "beforeChildren" } },
-  hidden: { opacity: 0, transition: { when: "afterChildren", staggerChildren: 0.2 } },
+  // visible: { opacity: 1, transition: { when: "beforeChildren" } },
+  // hidden: { opacity: 0, transition: { when: "afterChildren", staggerChildren: 0.2 } },
 };
 
 function App() {
@@ -20,9 +20,9 @@ function App() {
   return (
     <div className="container my-4 vstack gap-2">
       <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
-        <MotionBox variants={boxVariants}>1</MotionBox>
-        <MotionBox variants={boxVariants}>2</MotionBox>
-        <MotionBox variants={boxVariants}>3</MotionBox>
+        <MotionBox variants={boxVariants} transition={{ type: "inertia", velocity: 150 }}>
+          1
+        </MotionBox>
       </motion.div>
       <div>
         <Button onClick={toggle}>Afficher / Masquer</Button>
