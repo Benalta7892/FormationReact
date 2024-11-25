@@ -3,10 +3,11 @@ import { Button } from "./components/Button.jsx";
 import { motion, stagger } from "framer-motion";
 import "./App.css";
 import { forwardRef } from "react";
+import { AnimatePresence } from "framer-motion";
 
 const boxVariants = {
-  visible: { x: 0, rotate: 0 },
-  hidden: { x: 100, rotate: 45 },
+  visible: { x: 0, rotate: 0, opacity: 1 },
+  hidden: { x: 100, rotate: 45, opacity: 0 },
 };
 
 const wrappervariants = {
@@ -16,18 +17,17 @@ const wrappervariants = {
 
 function App() {
   const [open, toggle] = useToggle(true);
-  const items = open ? [1, 2, 3, 4, 5] : [3, 2, 5, 1, 4];
+  const items = open ? [1, 2, 3, 4, 5] : [1, 3, 5];
 
   return (
     <div className="container my-4 vstack gap-2">
-      <motion.div className="hstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
+      <AnimatePresence mode="popLayout">
         {items.map((item) => (
-          <MotionBox layout key={item}>
+          <MotionBox key={item} variants={boxVariants} animate="visible" initial="hidden" exit="hidden">
             {item}
           </MotionBox>
         ))}
-      </motion.div>
-      {open ? <Page1 /> : <Page2 />}
+      </AnimatePresence>
       <div>
         <Button onClick={toggle}>Afficher / Masquer</Button>
       </div>
