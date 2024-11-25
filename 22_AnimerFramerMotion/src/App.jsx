@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useToggle } from "./hooks/useToggle.js";
+import { Button } from "./components/Button.jsx";
+import { motion } from "framer-motion";
+import "./App.css";
+import { forwardRef } from "react";
+
+const boxVariants = {
+  visible: { x: 0, opacity: 1, rotate: 0 },
+  hidden: { x: 100, opacity: 0, rotate: 45 },
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [open, toggle] = useToggle(true);
 
   return (
-    <>
+    <div className="container my-4 vstack gap-2">
+      <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"}>
+        <Box>1</Box>
+        <Box>2</Box>
+        <Box>3</Box>
+      </motion.div>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Button onClick={toggle}>Afficher / Masquer</Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+const Box = forwardRef(({ children }, ref) => {
+  return (
+    <motion.div variants={boxVariants} className="box" ref={ref}>
+      {children}
+    </motion.div>
+  );
+});
+
+const MotionBox = motion(Box);
+
+export default App;
