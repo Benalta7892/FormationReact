@@ -16,14 +16,18 @@ const wrappervariants = {
 
 function App() {
   const [open, toggle] = useToggle(true);
+  const items = open ? [1, 2, 3, 4, 5] : [3, 2, 5, 1, 4];
 
   return (
     <div className="container my-4 vstack gap-2">
       <motion.div className="vstack gap-2" animate={open ? "visible" : "hidden"} variants={wrappervariants}>
-        <MotionBox variants={boxVariants} transition={{ type: "inertia", velocity: 150 }}>
-          1
-        </MotionBox>
+        {items.map((item) => (
+          <MotionBox layout key={item}>
+            {item}
+          </MotionBox>
+        ))}
       </motion.div>
+      {open ? <Page1 /> : <Page2 />}
       <div>
         <Button onClick={toggle}>Afficher / Masquer</Button>
       </div>
@@ -40,5 +44,33 @@ const Box = forwardRef(({ children }, ref) => {
 });
 
 const MotionBox = motion(Box);
+
+function Page1() {
+  return (
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptate ipsam ratione temporibus facilis
+        doloribus, sit illo, eum, mollitia deserunt quo incidunt facere! Quas inventore animi maiores exercitationem a
+        rerum!
+      </p>
+      <img src="https://picsum.photos/id/237/200/300" width={200} height={300} alt="" />
+      <p>Lorem ipsum dolor sit.</p>
+    </div>
+  );
+}
+
+function Page2() {
+  return (
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptate ipsam ratione temporibus facilis
+        doloribus, sit illo, eum, mollitia deserunt quo incidunt facere! Quas inventore animi maiores exercitationem a
+        rerum!
+      </p>
+      <img src="https://picsum.photos/id/238/200/300" width={200} height={300} alt="" />
+      <p>Lorem ipsum dolor sit.</p>
+    </div>
+  );
+}
 
 export default App;
